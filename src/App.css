@@ -1,0 +1,14 @@
+body{
+    margin-left: 1rem;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+.article-card {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: solid black;
+}
