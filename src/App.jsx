@@ -14,7 +14,6 @@ function App() {
     <Header />
     <Routes>
       <Route path='/' element={<ArticlesList setSelectedArticle={setSelectedArticle}/>} ></Route>
-      {/* <Route path='/articles/:topic' element={<ArticlesList setSelectedArticle={setSelectedArticle}/>} ></Route> */}
      <Route path ='/articles/:article_id' element={<SingleArticle selectedArticle={selectedArticle}/>}></Route>
 
   

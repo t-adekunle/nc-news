@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import ArticleCard from "./ArticleCard";
 import Loading from "./Loading";
 
-const ArticlesList = ({setSelectedArticle}) => {
+const ArticlesList = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
 
@@ -14,23 +14,23 @@ const ArticlesList = ({setSelectedArticle}) => {
       setArticles(articles);
       setIsLoading(false)
     });
-  }, [articles]);
+  }, []);
 
-//   if (isLoading) {
-//     return <Loading />;}
-// else{
+  if (isLoading) {
+    return <Loading />;}
+else{
     return (
         <div>
           <h2>Articles</h2>
           <ul>
             {articles.map((article) => (
-              <ArticleCard key={article.article_id} article={article} setSelectedArticle={setSelectedArticle} />
+              <ArticleCard key={article.article_id} article={article} />
             ))}
           </ul>
         </div>
       );
 }
 
-// };
+};
 
 export default ArticlesList;
