@@ -18,8 +18,8 @@ const CommentsList = ({article}) =>{
                     <p className = 'comment-author'>{comment.author}</p>
                     <p className = 'comment-created-at'>{comment.created_at}</p>
                     <p className = 'comment-body'>{comment.body}</p>
-                    <p className = 'comment-votes'>{comment.votes}</p>
-                    <button>Like</button>
+                    <p className = 'comment-votes'>Votes: {comment.votes}</p>
+                    <button>Vote &#8679;</button>
                     <button>Delete</button>
                 </div>
             })}

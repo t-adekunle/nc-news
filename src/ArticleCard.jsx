@@ -9,8 +9,8 @@ const ArticleCard = ({ article }) => {
        ><h3 className="article-card-title">{article.title}</h3></Link> 
         <p className="article-card-author">{article.author}</p>
         <p className="article-card-date">{article.created_at}</p>
-        <p className="article-card-votes">{article.votes}</p>
-        <p className="article-card-comment-count">{article.comment_count}</p>
+        <p className="article-card-votes">Votes: {article.votes}</p>
+        <p className="article-card-comment-count">Comments: {article.comment_count}</p>
       </li>
     </div>
   );
