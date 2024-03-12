@@ -2,22 +2,27 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { fetchArticle } from "./api"
 import CommentsList from "./CommentsList"
+import Loading from "./Loading"
 
 
-const SingleArticle = ({selectedArticle}) => {
-    console.log(selectedArticle)
+const SingleArticle = () => {
     const [article, setArticle] = useState({})
     const {article_id} = useParams()
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
+        setIsLoading(true)
         fetchArticle(article_id).then((data) => {
             setArticle(data)
+            setIsLoading(false)
         })
     }, [])
 
-console.log(article)
+if (isLoading) {
+        return <Loading />;}
+else{
 return ( 
-    <div className="single-page">
+    <article className="single-page"> 
         <div className="article">
         <h2 className="article-title">{article.title}</h2>
         <p className="article-topic">{article.topic}</p>
@@ -29,11 +34,11 @@ return (
         <div className="comments">
             <button>{article.votes}</button>
             <p>Comments:{article.comment_count}</p>
-            <CommentsList/>
+            <CommentsList article={article}/>
         </div>
         
-    </div>
-)
+        </article>
+)}
 
 }
 

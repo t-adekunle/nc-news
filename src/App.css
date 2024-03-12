@@ -12,3 +12,18 @@ ul {
     margin-bottom: 1rem;
     border: solid black;
 }
+
+.comments{
+    background-color: #e0f7f7;
+    padding: 20px;
+    border: 2px solid #bccccc;
+    border-radius: 25px;
+}
+
+.comment{
+    background-color: #b2cdcd;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 2px solid #b3b3b3;
+    border-radius: 25px;
+}
