@@ -10,3 +10,13 @@ export const fetchArticles = () => {
          return response.data.articles
     })
 }
+
+export const fetchArticle = (article_id) => {
+    
+    return newsApi 
+    .get(`/articles/${article_id}`)
+    .then((response)=>{
+        console.log(response.data, 'in Api')
+       return response.data.article
+    })
+}
