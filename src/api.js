@@ -21,3 +21,13 @@ export const fetchCommentsByArticle = (article_id) => {
     return response.data.comments;
   });
 };
+
+export const patchArticle = (article_id, likes) => {
+    const patchBody = { inc_votes: likes}
+    return newsApi.patch(`/articles/hello`, patchBody).then((response) => {
+      
+      return response
+    }).catch((err) => {
+      return err.response
+    })
+}
