@@ -24,10 +24,19 @@ export const fetchCommentsByArticle = (article_id) => {
 
 export const patchArticle = (article_id, likes) => {
     const patchBody = { inc_votes: likes}
-    return newsApi.patch(`/articles/hello`, patchBody).then((response) => {
+    return newsApi.patch(`/articles/${article_id}`, patchBody).then((response) => {
       
       return response
     }).catch((err) => {
       return err.response
     })
 }
+
+export const fetchUsers = () => {
+  return newsApi
+  .get('/users').then((response) => {
+    console.log(response.data.users)
+    return response.data.users
+  })
+}
+
