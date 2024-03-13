@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchCommentsByArticle } from "./api";
+import CommentAdder from "./CommentAdder";
 import Loading from "./Loading";
 
 const CommentsList = ({ article }) => {
@@ -21,6 +22,7 @@ const CommentsList = ({ article }) => {
   } else {
     return (
       <div>
+        <CommentAdder setComments = {setComments} article={article} />
         {comments.map((comment) => {
           return (
             <div key={comment.comment_id} className="comment">
