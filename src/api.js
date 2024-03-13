@@ -40,19 +40,14 @@ export const fetchUsers = () => {
 }
 
 export const postComment = (article_id, username, body) => {
-  console.log(article_id)
-  console.log(username)
-  console.log(body)
   const postBody = {
-   article_id: 1,
     username: username,
     body: body
   }
   return newsApi
   .post(`/articles/${article_id}/comments`, postBody)
   .then((response) => {
-    console.log(response)
-    return response.body
+    return response.data.comment
   })
-
+  
 }
