@@ -31,3 +31,11 @@ export const patchArticle = (article_id, likes) => {
       return err.response
     })
 }
+
+export const fetchUsers = () => {
+  return newsApi
+  .get('/users')
+  .then((response) => {
+    return response.data.users
+  })
+}

@@ -3,60 +3,43 @@ import { UserContext } from "./contexts/User";
 import { fetchUsers } from "./api";
 
 const SignIn = () => {
-  const { user, setUser } = useContext(UserContext);
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   const [userName, setUserName] = useState("");
   const [name, setName] = useState("");
   const [users, setUsers] = useState([]);
-  const [loginError, setLoginError] = useState('')
-  const[isValidUser, setIsValidUser] = useState(true)
-  
+  const [err, setErr] = useState(null);
+  const [loginError, setLoginError] = useState(null);
 
-  
   const validateUser = (event) => {
     event.preventDefault();
-    setLoginError('')
-    setIsValidUser(false)
-    fetchUsers().then((data) => {
-      setUsers(data);
-    });
+    setLoginError(null);
 
-    
-    const validUser = users.filter((user) => { 
-      return user.username === userName})
+    fetchUsers()
+      .then((data) => {
+        setUsers(data);
+        setErr(null);
 
-    console.log(validUser, 'validUser array')
-      if (validUser.length === 1){
-        // setIsValidUser(true)
-        // setLoginError('')
-        setUser(validUser[0].username)
-        console.log(user, '<<<user when valid')
-      }
-      else{
-        // setIsValidUser(false)
-        setUser('')
-        setLoginError('Invalid name or username')
-      }
-    // users.forEach((user) => {
-    //     if(user.username === userName){
-    //         setUser(user.username)
-    //         setIsValidUser(true)
-    //         setLoginError('')
-    //     }
-    //     else{
-    //         setIsValidUser(false)
-    //         setLoginError('Invalid name or username')
-    //     }
-    // })
-    // console.log(loginError)
-    // console.log(isValidUser)
-    setUser('')
-    console.log(user, 'user outside of function')
-    
-    setUserName('')
-    setName('')
+        const validUser = [];
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].username === userName) {
+            validUser.push(data[i]);
+
+            setLoginError(null);
+          }
+        }
+        if (validUser.length === 0) {
+          setLoginError("Invalid password or username");
+        }
+
+        setLoggedInUser(validUser[0]);
+      })
+      .catch((err) => {
+        setErr("Something went wrong, please try again");
+      });
+    setName("");
+    setUserName("");
   };
- 
-    
+
   return (
     <form onSubmit={validateUser}>
       <label htmlFor="name">Name:</label>
@@ -69,7 +52,7 @@ const SignIn = () => {
           setName(event.target.value);
         }}
       ></input>
-      
+
       <label htmlFor="username">Username:</label>
       <input
         value={userName}
@@ -79,9 +62,14 @@ const SignIn = () => {
           setUserName(event.target.value);
         }}
       ></input>
-      <p id='login-error'>{loginError}</p>
       <br></br>
-
+      {err ? <p className="error">{err}</p> : null}
+      {loginError ? (
+        <p className="error" id="login-error">
+          {loginError}
+        </p>
+      ) : null}
+      <br></br>
       <button type="submit">Sign In</button>
     </form>
   );

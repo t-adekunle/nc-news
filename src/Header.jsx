@@ -2,10 +2,9 @@ import ArticlesDropdown from "./ArticlesDropdown";
 import { Link } from "react-router-dom";
 import { UserContext } from "./contexts/User";
 
-const Header = ({user, setUser}) => {
+const Header = () => {
 
-  console.log(user)
-  console.log(UserContext)
+  
   return (
     <div>
         <h1>NC News</h1>
