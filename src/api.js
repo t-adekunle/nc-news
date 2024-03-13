@@ -23,19 +23,30 @@ export const fetchCommentsByArticle = (article_id) => {
 };
 
 export const patchArticle = (article_id, likes) => {
-    const patchBody = { inc_votes: likes}
-    return newsApi.patch(`/articles/hello`, patchBody).then((response) => {
-      
-      return response
-    }).catch((err) => {
-      return err.response
-    })
-}
+
+  const patchBody = { inc_votes: likes };
+  return newsApi
+    .patch(`/articles/${article_id}`, patchBody)
+    .then((response) => {
+      return response;
+    });
+};
 
 export const fetchUsers = () => {
+  return newsApi.get("/users").then((response) => {
+    return response.data.users;
+  });
+};
+
+export const postComment = (article_id, username, body) => {
+  const postBody = {
+    username: username,
+    body: body,
+  };
   return newsApi
-  .get('/users')
-  .then((response) => {
-    return response.data.users
-  })
-}
+    .post(`/articles/${article_id}/comments`, postBody)
+    .then((response) => {
+      return response.data.comment;
+    });
+};
+
