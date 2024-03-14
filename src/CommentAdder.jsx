@@ -45,7 +45,7 @@ const CommentAdder = ({ setComments, article }) => {
         }} disabled={isDisabled}
       ></input>
       {err ? <p className="error">{err}</p>: null}
-      <button>Post</button>
+      <button disabled={isDisabled}>Post</button>
     </form>
   );
 };
