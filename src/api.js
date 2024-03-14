@@ -4,9 +4,10 @@ const newsApi = axios.create({
   baseURL: "https://news-project-r24g.onrender.com/api",
 });
 
-export const fetchArticles = (topic) => {
-
-  return newsApi.get("/articles", {params:{topic: topic}}).then((response) => {
+export const fetchArticles = (topic, searchParams) => {
+  const sort = searchParams.get('sort_by')
+  const order = searchParams.get('order')
+  return newsApi.get("/articles", {params:{topic: topic, sort_by:sort, order: order}}).then((response) => {
     return response.data.articles;
   });
 };

@@ -3,28 +3,31 @@ import { fetchArticles } from "./api";
 import { useEffect } from "react";
 import ArticleCard from "./ArticleCard";
 import Loading from "./Loading";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
+import SortArticlesMenu from "./SortArticlesMenu";
 
 const ArticlesList = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
   const {topic} = useParams()
+  let [searchParams, setSearchParams] = useSearchParams()
 
 
   useEffect(() => {
     setIsLoading(true)
-    fetchArticles(topic).then((articles) => {
+    fetchArticles(topic, searchParams).then((articles) => {
       setArticles(articles);
       setIsLoading(false)
     });
-  }, [topic]);
+  }, [topic, searchParams]);
 
   if (isLoading) {
     return <Loading />;}
 else{
     return (
         <div>
-          <h2>Articles</h2>
+          <h2>{topic} Articles</h2>
+          <SortArticlesMenu setSearchParams = {setSearchParams} searchParams = {searchParams}/>
           <ul>
             {articles.map((article) => (
               <ArticleCard key={article.article_id} article={article} />
