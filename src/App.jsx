@@ -11,7 +11,7 @@ import { UserContext } from './contexts/User'
 function App() {
 
   const [selectedArticle, setSelectedArticle] = useState('')
-  const [loggedInUser, setLoggedInUser ] = useState(UserContext)
+
 
 
 
@@ -23,6 +23,7 @@ function App() {
     <Routes>
       <Route path='/' element={<ArticlesList setSelectedArticle={setSelectedArticle}/>} ></Route>
      <Route path ='/articles/:article_id' element={<SingleArticle selectedArticle={selectedArticle}/>}></Route>
+     <Route path ='/topics/:topic' element={<ArticlesList setSelectedArticle={setSelectedArticle}/>}></Route>
      <Route path = '/signin' element ={<SignIn/>}></Route>
     </Routes>
     </div>

@@ -9,9 +9,10 @@ const Header = () => {
     <div>
         <h1>NC News</h1>
       <nav>
-        <button><Link to="/">Articles</Link></button>
-        <button>Profile</button>
-        <button><Link to='/signin'>Login</Link></button>
+        <ArticlesDropdown />
+        {/* <button><Link to="/">All Articles</Link></button> */}
+        <button className="btn">Profile</button>
+        <button className="btn"><Link to='/signin'>Login</Link></button>
       </nav>
       <p></p>
     </div>
