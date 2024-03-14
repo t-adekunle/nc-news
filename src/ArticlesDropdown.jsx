@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
+import { fetchTopics } from "./api";
 
 
 
@@ -13,21 +14,22 @@ const ArticlesDropdown = () => {
         fetchTopics().then((data) =>  {
             setTopics(data)
         })
-    }, [])
+    }, [topics])
 
 return (
-    <div class="dropdown">
-  <button class="dropbtn" >Articles
-  </button>
-  <div class="dropdown-content" id="drop-down">
-    <Link to={'/'}>All</Link>
-    {topics.map((topic) => {
+
+<div className="dropdown">
+  <button className="dropbtn">Articles</button>
+  <div className="dropdown-content">
+  <Link to={'/'}>All</Link>
+  {topics.map((topic) => {
         return ( 
-            <Link key={topic.slug} to={`/topics/${topic.slug}`} value={topic.slug}>{topic.slug}</Link>
+            <Link key={topic.slug} to={`/topics/${topic.slug}`} value={topic.slug}>{topic.slug.charAt(0).toUpperCase()+topic.slug.slice(1)}</Link>
         )
     })}
   </div>
-  </div>
+</div>
+
 )
 }
 /**
