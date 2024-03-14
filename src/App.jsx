@@ -24,6 +24,7 @@ function App() {
       <Route path='/' element={<ArticlesList setSelectedArticle={setSelectedArticle}/>} ></Route>
      <Route path ='/articles/:article_id' element={<SingleArticle selectedArticle={selectedArticle}/>}></Route>
      <Route path ='/topics/:topic' element={<ArticlesList setSelectedArticle={setSelectedArticle}/>}></Route>
+     <Route path ='/article/*' element={<ArticlesList setSelectedArticle={setSelectedArticle}/>}></Route>
      <Route path = '/signin' element ={<SignIn/>}></Route>
     </Routes>
     </div>
