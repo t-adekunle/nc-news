@@ -23,7 +23,6 @@ export const fetchCommentsByArticle = (article_id) => {
 };
 
 export const patchArticle = (article_id, likes) => {
-
   const patchBody = { inc_votes: likes };
   return newsApi
     .patch(`/articles/${article_id}`, patchBody)
@@ -50,3 +49,10 @@ export const postComment = (article_id, username, body) => {
     });
 };
 
+export const deleteComment = (comment_id) => {
+  return newsApi
+  .delete(`/comments/${comment_id}`)
+  .then((response) => {
+    return response.data
+  })
+}
