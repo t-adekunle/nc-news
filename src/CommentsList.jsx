@@ -13,7 +13,8 @@ const CommentsList = ({ article }) => {
   const [isSignedIn, setIsSignedIn] = useState(null);
   const [err, setErr] = useState(null);
 
-  const user = "grumpy19";
+  const user = 'grumpy19';
+
 
   useEffect(() => {
     setErr(null);
@@ -63,7 +64,7 @@ const CommentsList = ({ article }) => {
   } else {
     return (
       <div>
-        {isSignedIn ? null : <p>{isSignedIn}</p>}
+       
         <CommentAdder setComments={setComments} article={article} />
         {comments.map((comment) => {
           return (
