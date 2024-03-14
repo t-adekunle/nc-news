@@ -7,15 +7,16 @@ import SingleArticle from './SingleArticle'
 import SignIn from './SignIn'
 import { UserContext } from './contexts/User'
 
+
 function App() {
 
   const [selectedArticle, setSelectedArticle] = useState('')
-  const [loggedInUser, setLoggedInUser ] = useState({})
+  const [loggedInUser, setLoggedInUser ] = useState(UserContext)
 
 
 
   return (
-    <UserContext.Provider value={{loggedInUser, setLoggedInUser}}>
+  
 
     <div>
     <Header />
@@ -25,7 +26,7 @@ function App() {
      <Route path = '/signin' element ={<SignIn/>}></Route>
     </Routes>
     </div>
-    </UserContext.Provider>
+    
     
   
   )
