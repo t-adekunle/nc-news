@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import { UserContext } from "./contexts/User";
 import CommentAdder from "./CommentAdder";
 import Loading from "./Loading";
+import ErrorPage from "./ErrorPage";
 
 const CommentsList = ({ article }) => {
   const [comments, setComments] = useState([]);
@@ -12,17 +13,23 @@ const CommentsList = ({ article }) => {
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   const [isSignedIn, setIsSignedIn] = useState(null);
   const [err, setErr] = useState(null);
+  const [pageErr, setPageErr] = useState(null)
 
   const user = 'grumpy19';
 
 
   useEffect(() => {
+    setPageErr(null)
     setErr(null);
     setIsLoading(true);
     fetchCommentsByArticle(article.article_id).then((data) => {
+      setPageErr(null)
       setComments(data);
       setIsLoading(false);
-    });
+    }).catch((err) => {
+      setIsLoading(false)
+      setPageErr(`${err.response.status} ${err.response.data.msg}`)
+    })
   }, []);
 
   const handleClick = (event) => {
@@ -59,7 +66,11 @@ const CommentsList = ({ article }) => {
 
   if (isLoading) {
     return <Loading />;
-  } else if (comments.length === 0) {
+  } 
+  else if (pageErr) {
+    return <ErrorPage pageErr={pageErr}/>
+  }
+  else if (comments.length === 0) {
     return <p>This article has no comments</p>;
   } else {
     return (

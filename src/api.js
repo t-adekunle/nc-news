@@ -9,19 +9,19 @@ export const fetchArticles = (topic, searchParams) => {
   const order = searchParams.get('order')
   return newsApi.get("/articles", {params:{topic: topic, sort_by:sort, order: order}}).then((response) => {
     return response.data.articles;
-  });
+  })
 };
 
 export const fetchArticle = (article_id) => {
   return newsApi.get(`/articles/${article_id}`).then((response) => {
     return response.data.article;
-  });
+  })
 };
 
 export const fetchCommentsByArticle = (article_id) => {
   return newsApi.get(`/articles/${article_id}/comments`).then((response) => {
     return response.data.comments;
-  });
+  })
 };
 
 export const patchArticle = (article_id, likes) => {
@@ -66,3 +66,14 @@ export const fetchTopics = () => {
     return response.data.topics
   })
 }
+
+// export const fetchData = (endpoint) => {
+//   console.log(endpoint)
+//   return newsApi
+//   .get('/*')
+//   .then((response) => {
+//     return response.data
+//   }).catch((err) => {
+//    return err.response
+//   })
+// }

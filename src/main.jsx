@@ -9,10 +9,10 @@ import { useState } from 'react'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   
- <UserProvider>
+
   <BrowserRouter>
     <App />
   </BrowserRouter>
-  </UserProvider>
+  
   
 )
