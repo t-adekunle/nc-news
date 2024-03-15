@@ -16,7 +16,8 @@ const CommentsList = ({ article }) => {
   const [pageErr, setPageErr] = useState(null)
   const [isPosted, setIsPosted]  = useState(true)
 
-  const user = 'grumpy19';
+
+  const user = loggedInUser;
 
 /**Load Comments */
   useEffect(() => {
@@ -97,7 +98,7 @@ const CommentsList = ({ article }) => {
               <p className="comment-votes">Votes: {comment.votes}</p>
               <button disabled={isDisabled}>Vote &#8679;</button>
               <button
-                disabled={comment.author === user && !isDisabled && isPosted ? false : true}
+                disabled={comment.author === user.username && !isDisabled && isPosted ? false : true}
                 onClick={handleClick}
               >
                 Delete
