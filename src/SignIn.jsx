@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./contexts/User";
 import { fetchUsers } from "./api";
+import UserCard from "./UserCard";
 
 const SignIn = () => {
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
@@ -9,69 +10,62 @@ const SignIn = () => {
   const [users, setUsers] = useState([]);
   const [err, setErr] = useState(null);
   const [loginError, setLoginError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const validateUser = (event) => {
-    event.preventDefault();
-    setLoginError(null);
-
+  useEffect(() => {
+    setIsLoading(true);
     fetchUsers()
       .then((data) => {
-        setUsers(data);
         setErr(null);
-
-        const validUser = [];
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].username === userName) {
-            validUser.push(data[i]);
-
-            setLoginError(null);
-          }
-        }
-        if (validUser.length === 0) {
-          setLoginError("Invalid password or username");
-        }
-
-        setLoggedInUser(validUser[0]);
+        setIsLoading(false);
+        setUsers(data);
       })
       .catch((err) => {
         setErr("Something went wrong, please try again");
       });
-    setName("");
-    setUserName("");
-  };
+  }, [users]);
 
   return (
-    <form onSubmit={validateUser}>
-      <label htmlFor="name">Name:</label>
-      <input
-        value={name}
-        id="name"
-        type="name"
-        required
-        onChange={(event) => {
-          setName(event.target.value);
-        }}
-      ></input>
+    <div>
+      <h2>Click your account to sign in</h2>
+    
+        {users.map((user) => {
+         return <UserCard key={user.username} user={user} />;
+        })}
+    
+    </div>
 
-      <label htmlFor="username">Username:</label>
-      <input
-        value={userName}
-        id="username"
-        required
-        onChange={(event) => {
-          setUserName(event.target.value);
-        }}
-      ></input>
-      <br></br>
-      {err ? <p className="error">{err}</p> : null}
-      {loginError ? (
-        <p className="error" id="login-error">
-          {loginError}
-        </p>
-      ) : null}
-      <br></br>
-      <button type="submit">Sign In</button>
-    </form>
+    // <form onSubmit={validateUser}>
+    //   <label htmlFor="name">Name:</label>
+    //   <input
+    //     value={name}
+    //     id="name"
+    //     type="name"
+    //     required
+    //     onChange={(event) => {
+    //       setName(event.target.value);
+    //     }}
+    //   ></input>
+
+    //   <label htmlFor="username">Username:</label>
+    //   <input
+    //     value={userName}
+    //     id="username"
+    //     required
+    //     onChange={(event) => {
+    //       setUserName(event.target.value);
+    //     }}
+    //   ></input>
+    //   <br></br>
+    //   {err ? <p className="error">{err}</p> : null}
+    //   {loginError ? (
+    //     <p className="error" id="login-error">
+    //       {loginError}
+    //     </p>
+    //   ) : null}
+    //   <br></br>
+    //   <button type="submit">Sign In</button>
+    // </form>
   );
 };
 

@@ -1,8 +1,11 @@
 import ArticlesDropdown from "./ArticlesDropdown";
 import { Link } from "react-router-dom";
 import { UserContext } from "./contexts/User";
+import { useContext } from "react";
 
 const Header = () => {
+
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
 
   
   return (
@@ -14,7 +17,7 @@ const Header = () => {
         <button className="btn">Profile</button>
         <button className="btn"><Link to='/signin'>Login</Link></button>
       </nav>
-      <p></p>
+      {Object.keys(loggedInUser).length === 3 ? <p>Welcome {loggedInUser.name} </p> : <p>Welcome</p>}
     </div>
   );
 };
