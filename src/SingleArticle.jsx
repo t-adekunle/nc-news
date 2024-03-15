@@ -16,7 +16,6 @@ const SingleArticle = () => {
   const [pageErr, setPageErr] = useState(null)
   const [isDisabled, setIsDisabled] = useState(true)
 
-
   useEffect(() => {
     if (Object.keys(loggedInUser).length === 3){
       setIsDisabled(false)
@@ -67,7 +66,7 @@ const SingleArticle = () => {
           <h2 className="article-title">{article.title}</h2>
           <p className="article-topic">{article.topic}</p>
           <p className="article-author">{article.author}</p>
-          <img src={article.article_img_url} className="article-image"></img>
+          <img src={article.article_img_url} className="article-image" alt='article image'></img>
           <p className="article-created">{article.created_at}</p>
           <p className="article-body">{article.body}</p>
         </div>

@@ -11,13 +11,12 @@ const Header = () => {
   return (
     <div>
         <h1>NC News</h1>
-      <nav>
+      <nav className="nav">
         <ArticlesDropdown />
-        {/* <button><Link to="/">All Articles</Link></button> */}
-        <button className="btn">Profile</button>
         <button className="btn"><Link to='/signin'>Login</Link></button>
+        {Object.keys(loggedInUser).length === 3 ? <div><p>Welcome {loggedInUser.name}</p> <img className="user-thumbnail" src={loggedInUser.avatar_url}alt ='user profile picture' ></img></div> : <p>Welcome</p>}
+      
       </nav>
-      {Object.keys(loggedInUser).length === 3 ? <p>Welcome {loggedInUser.name} </p> : <p>Welcome</p>}
     </div>
   );
 };
