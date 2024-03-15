@@ -5,24 +5,33 @@ import ArticleCard from "./ArticleCard";
 import Loading from "./Loading";
 import { useParams, useSearchParams } from "react-router-dom";
 import SortArticlesMenu from "./SortArticlesMenu";
+import ErrorPage from "./ErrorPage";
 
 const ArticlesList = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setIsLoading] = useState(true)
   const {topic} = useParams()
+  const [pageErr, setPageErr] = useState(null)
   let [searchParams, setSearchParams] = useSearchParams()
 
 
   useEffect(() => {
+    setPageErr(null)
     setIsLoading(true)
     fetchArticles(topic, searchParams).then((articles) => {
       setArticles(articles);
       setIsLoading(false)
-    });
+    }).catch((err) => {
+      setIsLoading(false)
+      setPageErr(`${err.response.status} ${err.response.data.msg}`)
+    })
   }, [topic, searchParams]);
 
   if (isLoading) {
     return <Loading />;}
+  else if (pageErr){
+    return(<ErrorPage pageErr = {pageErr}/>)
+  }
 else{
     return (
         <div>

@@ -3,12 +3,14 @@ import { useParams } from "react-router-dom";
 import { fetchArticle, patchArticle } from "./api";
 import CommentsList from "./CommentsList";
 import Loading from "./Loading";
+import ErrorPage from "./ErrorPage";
 
 const SingleArticle = () => {
   const [article, setArticle] = useState({});
   const { article_id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [err, setErr] = useState(null);
+  const [pageErr, setPageErr] = useState(null)
 
   useEffect(() => {
     setIsLoading(true);
@@ -16,7 +18,11 @@ const SingleArticle = () => {
     fetchArticle(article_id).then((data) => {
       setArticle(data);
       setIsLoading(false);
-    });
+    }).catch((err) => {
+      setIsLoading(false)
+      setPageErr(`${err.response.status} ${err.response.data.msg}`)
+    })
+  
   }, []);
 
   const sendLike = (article_id, likes) => {
@@ -39,7 +45,11 @@ const SingleArticle = () => {
   };
   if (isLoading) {
     return <Loading />;
-  } else {
+  } 
+  else if (pageErr){
+    return <ErrorPage pageErr = {pageErr}/>
+  }
+    else {
     return (
       <article className="single-page">
         <div className="article">
