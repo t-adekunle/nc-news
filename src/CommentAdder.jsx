@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { postComment } from "./api";
 
-const CommentAdder = ({ setComments, article }) => {
+const CommentAdder = ({ setComments, article, isPosted, setIsPosted}) => {
   const [comment, setComment] = useState("");
   const [err, setErr] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false)
@@ -9,6 +9,7 @@ const CommentAdder = ({ setComments, article }) => {
 
   const handleClick = (event) => {
     event.preventDefault();
+    setIsPosted(false)
     setIsDisabled(true)
     const commentToAdd = {
       author: username,
@@ -22,10 +23,15 @@ const CommentAdder = ({ setComments, article }) => {
     });
 
     postComment(article.article_id, username, comment).then((data) => {
+        setComments((currComments) => {
+          setIsPosted(true)
+          return [data, ...currComments]
+        })
         setIsDisabled(false)
     })
     .catch((err)  => {
         setComments((currComments) => {
+          setIsPosted(false)
             const commentsCopy = [...currComments]
             commentsCopy.shift()
             setErr('Something went wrong, please try again')

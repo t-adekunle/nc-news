@@ -66,14 +66,3 @@ export const fetchTopics = () => {
     return response.data.topics
   })
 }
-
-// export const fetchData = (endpoint) => {
-//   console.log(endpoint)
-//   return newsApi
-//   .get('/*')
-//   .then((response) => {
-//     return response.data
-//   }).catch((err) => {
-//    return err.response
-//   })
-// }
