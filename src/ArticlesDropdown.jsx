@@ -14,7 +14,7 @@ const ArticlesDropdown = () => {
         fetchTopics().then((data) =>  {
             setTopics(data)
         })
-    }, [topics])
+    }, [])
 
 return (
 

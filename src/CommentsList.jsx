@@ -14,11 +14,13 @@ const CommentsList = ({ article }) => {
   const [isSignedIn, setIsSignedIn] = useState(null);
   const [err, setErr] = useState(null);
   const [pageErr, setPageErr] = useState(null)
+  const [isPosted, setIsPosted]  = useState(true)
 
   const user = 'grumpy19';
 
-
+/**Load Comments */
   useEffect(() => {
+  
     setPageErr(null)
     setErr(null);
     setIsLoading(true);
@@ -32,12 +34,14 @@ const CommentsList = ({ article }) => {
     })
   }, []);
 
+/**Delete Comment */
   const handleClick = (event) => {
     event.preventDefault();
     setErr(null);
     setIsDisabled(true);
 
     const comment_id = Number(event.target.parentElement.id);
+  
     const commentClickedArr = comments.filter(
       (comment) => comment.comment_id === comment_id
     );
@@ -76,7 +80,7 @@ const CommentsList = ({ article }) => {
     return (
       <div>
        
-        <CommentAdder setComments={setComments} article={article} />
+        <CommentAdder setComments={setComments} article={article} isPosted={isPosted} setIsPosted={setIsPosted} />
         {comments.map((comment) => {
           return (
             <div
@@ -93,7 +97,7 @@ const CommentsList = ({ article }) => {
               <p className="comment-votes">Votes: {comment.votes}</p>
               <button disabled={isDisabled}>Vote &#8679;</button>
               <button
-                disabled={comment.author === user && !isDisabled ? false : true}
+                disabled={comment.author === user && !isDisabled && isPosted ? false : true}
                 onClick={handleClick}
               >
                 Delete
