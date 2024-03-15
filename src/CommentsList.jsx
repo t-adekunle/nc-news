@@ -11,7 +11,6 @@ const CommentsList = ({ article }) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [activeComment, setActiveComment] = useState({});
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
-  const [isSignedIn, setIsSignedIn] = useState(null);
   const [err, setErr] = useState(null);
   const [pageErr, setPageErr] = useState(null)
   const [isPosted, setIsPosted]  = useState(true)

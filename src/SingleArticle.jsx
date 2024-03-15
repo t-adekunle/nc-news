@@ -4,15 +4,26 @@ import { fetchArticle, patchArticle } from "./api";
 import CommentsList from "./CommentsList";
 import Loading from "./Loading";
 import ErrorPage from "./ErrorPage";
+import { UserContext } from "./contexts/User";
+import { useContext } from "react";
 
 const SingleArticle = () => {
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   const [article, setArticle] = useState({});
   const { article_id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [err, setErr] = useState(null);
   const [pageErr, setPageErr] = useState(null)
+  const [isDisabled, setIsDisabled] = useState(true)
+
 
   useEffect(() => {
+    if (Object.keys(loggedInUser).length === 3){
+      setIsDisabled(false)
+    }
+    else if (Object.keys(loggedInUser).length === 0){
+    setIsDisabled(true)
+  }
     setIsLoading(true);
     setErr(null);
     fetchArticle(article_id).then((data) => {
@@ -23,7 +34,7 @@ const SingleArticle = () => {
       setPageErr(`${err.response.status} ${err.response.data.msg}`)
     })
   
-  }, []);
+  }, [loggedInUser]);
 
   const sendLike = (article_id, likes) => {
     setArticle((currArticle) => {
@@ -62,7 +73,7 @@ const SingleArticle = () => {
         </div>
         <div className="comments">
           {err ? <p className="error">{err}</p> : null}
-          <button
+          <button disabled={isDisabled}
             className="vote-btn"
             aria-label="click to up vote article"
             onClick={() => {
@@ -71,7 +82,7 @@ const SingleArticle = () => {
           >
             &#8679;
           </button>
-          <button
+          <button disabled={isDisabled}
             className="vote-btn"
             aria-label="click to down vote article"
             onClick={() => {

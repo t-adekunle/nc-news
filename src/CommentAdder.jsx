@@ -60,7 +60,7 @@ const CommentAdder = ({ setComments, article, isPosted, setIsPosted}) => {
   };
   return (
     <form onSubmit={handleClick}>
-      {isLoggedIn ? null : <p className="bold">Please <Link to='/signin'>sign in</Link> to add a comment</p>}
+      {isLoggedIn ? null : <p className="bold">Please <Link to='/signin'>sign in</Link> to add a comment or vote</p>}
       <label htmlFor="comment">Add a comment:</label>
       <input
         id="comment"
