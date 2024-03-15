@@ -19,6 +19,11 @@ A minimum of Node.js v21.5.0m needed
 ```
 git clone https://github.com/t-adekunle/nc-news
 ```
+### Installing Dependencies:
+
+```
+npm install
+```
 
 ### Run App locally
 
@@ -27,8 +32,3 @@ cd nc-news
 npm run dev
 ```
 
-### Installing Dependencies:
-
-```
-npm install
-```
