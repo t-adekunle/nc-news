@@ -15,13 +15,17 @@ const SingleArticle = () => {
   const [err, setErr] = useState(null);
   const [pageErr, setPageErr] = useState(null)
   const [isDisabled, setIsDisabled] = useState(true)
+  const [hasVoted, setHasVoted] = useState(false)
+  const [isSignedIn, setIsSignedIn] = useState(false)
 
   useEffect(() => {
     if (Object.keys(loggedInUser).length === 3){
-      setIsDisabled(false)
+      setIsSignedIn(true)
+      // setIsDisabled(false)
     }
     else if (Object.keys(loggedInUser).length === 0){
-    setIsDisabled(true)
+      setIsSignedIn(false)
+      // setIsDisabled(true)
   }
     setIsLoading(true);
     setErr(null);
@@ -39,6 +43,7 @@ const SingleArticle = () => {
     setArticle((currArticle) => {
       if (currArticle.article_id === article_id) {
         setErr(null);
+        setHasVoted(true)
         return { ...currArticle, votes: article.votes + likes };
       } else {
         setErr("Something went wrong, please try again");
@@ -53,6 +58,12 @@ const SingleArticle = () => {
         });
       });
   };
+// if (isSignedIn && !hasVoted){
+//   setIsDisabled(false)
+// }
+// else{
+//   setIsDisabled(true)
+// }
   if (isLoading) {
     return <Loading />;
   } 
@@ -72,7 +83,7 @@ const SingleArticle = () => {
         </div>
         <div className="comments">
           {err ? <p className="error">{err}</p> : null}
-          <button disabled={isDisabled}
+          <button disabled={!(isSignedIn && !hasVoted)}
             className="vote-btn"
             aria-label="click to up vote article"
             onClick={() => {
@@ -81,7 +92,7 @@ const SingleArticle = () => {
           >
             &#8679;
           </button>
-          <button disabled={isDisabled}
+          <button disabled={!(isSignedIn && !hasVoted)}
             className="vote-btn"
             aria-label="click to down vote article"
             onClick={() => {
@@ -92,7 +103,7 @@ const SingleArticle = () => {
           </button>
           <p>Votes: {article.votes}</p>
           <p>Comments: {article.comment_count}</p>
-          <CommentsList article={article} />
+          <CommentsList article={article}  isSignedIn={isSignedIn}/>
         </div>
       </article>
     );

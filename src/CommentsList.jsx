@@ -5,7 +5,7 @@ import CommentAdder from "./CommentAdder";
 import Loading from "./Loading";
 import ErrorPage from "./ErrorPage";
 
-const CommentsList = ({ article }) => {
+const CommentsList = ({ article, isSignedIn }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -14,13 +14,17 @@ const CommentsList = ({ article }) => {
   const [err, setErr] = useState(null);
   const [pageErr, setPageErr] = useState(null)
   const [isPosted, setIsPosted]  = useState(true)
+  
 
 
   const user = loggedInUser;
 
+  
+
+//  isSignedIn ? setIsDisabled(false) : setIsDisabled(true)
+
 /**Load Comments */
   useEffect(() => {
-  
     setPageErr(null)
     setErr(null);
     setIsLoading(true);
@@ -28,6 +32,7 @@ const CommentsList = ({ article }) => {
       setPageErr(null)
       setComments(data);
       setIsLoading(false);
+      !isSignedIn ? setIsDisabled(true) : setIsDisabled(false)
     }).catch((err) => {
       setIsLoading(false)
       setPageErr(`${err.response.status} ${err.response.data.msg}`)
