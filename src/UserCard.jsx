@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "./contexts/User";
+import { Link } from "react-router-dom";
 
 
 const UserCard = ({user}) => {
@@ -15,7 +16,7 @@ return (
         <h3>{user.name}</h3>
         <img src={user.avatar_url}></img>
         <p>{user.username}</p>
-        <button onClick={handleClick}>Sign In</button>
+        <button onClick={handleClick}><Link to={'/'}>Sign In</Link></button>
     </div>
 )
 }
